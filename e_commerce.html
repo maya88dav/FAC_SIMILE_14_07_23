@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> E-Commerce </title>
+    <script defer src="e_commerce.js"></script>
+ 
+    <link rel ="stylesheet" href="e_commerce.css">
+</head>
+<body>
+    <div class="main_container">
+        <header><!-- nell'header va inserito il nome dell'azienda,il div menu e div carello -->
+            <h1> Meglio usato che Nuovo S.r.l.</h1> <!-- NOME AZIENDA-->
+            <div class="imageCart">
+                <img src="shopping_cart.png" alt="cart">
+                <span class="quantità">0</span>
+            </div>
+            
+        </header>
+   
+
+        <div class="menu_dinamico">
+            <ul class="navBar">
+                <!-- nell' ancor ho messo  un id e onclick a cui  con "this" passo il suo id e ogni volta cliccando sulla categoria scelta genero i prodotti-->
+                <li class="computer" > <a id="COMPUTER" onclick="test(this.id)" href="#">Computer</a>  </li> 
+                <li class="portatili"> <a  id="NOTEBOOK" onclick="test(this.id)" href="#">Notebook </a> </li>
+                <li class="smpartphone" > <a id ="SMARTPHONE" onclick="test(this.id)" href="#">Smartphone</a></li>
+            </ul>
+        </div>
+
+        <div class="productCells">
+            <!-- in questo div vuoto  andranno  i prodottii inseriti -->
+
+        </div>
+
+        <div class="carello">
+            <h1> YOUR CART</h1>
+
+            <ul class="listaCarello"> <!-- nel carello vedremmo la lista dei prodotti  messi nel carrello--> </ul>
+
+            <div class="sommativo">
+
+                <div class="total">0</div>
+
+                <div class="chiudiCarello">Close</div>
+
+            </div>
+        </div>
+        
+
+
+
+        <footer class="main_container">
+            <div class="contenuto">
+                <h4>Meglio usato che nuovo S.r.L.</h4>
+                <address>via Ronco ,Castel Maggiore  40013 Castel Maggiore Bologna</address>
+            </div>
+
+        </footer>
+
+       
+    
+    </div>    
+    <!-- creo div dove andranno messi  i prodotti su cui sono stati cliaccati-->   
+     <div id="productPopUp" class="productPopUp"> 
+        <div class="popup">
+     </div>
+    </div>
+</body>
+</html>
