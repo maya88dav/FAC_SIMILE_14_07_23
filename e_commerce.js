@@ -1,15 +1,18 @@
-let body = document.querySelector('body');
+let body = document.querySelector('body');// prendo da html il tag <body> con document.querySelector
 let apriCarello = document.querySelector('.imageCart');
 let chiudiCarello = document.querySelector('.chiudiCarello');
 
 // creo la funzione per aprire il carrello cliccandoci sopra
+/*con la variabile apricarello uso il metodo AddEventListener dove cliccando 
+dopo aver assegnato ad imageCart la bvariabile apriCarello,creo un funzione dentro la quale usando il metodo classList.add,
+si aggiunge active al body modificabile tramite css*/
 apriCarello.addEventListener('click', ()=>{
-    body.classList.add('active');
+    body.classList.add('mostra');
 })
 
 // creo la funzione per chiudere il carrello cliccando sopra "chiudi"
 chiudiCarello.addEventListener('click', ()=> {
-    body.classList.remove('active');
+    body.classList.remove('mostra');
 })
 
 //creo la variabile products e ci metto un array di prodotti con le loro caratteristiche 
@@ -55,7 +58,7 @@ let products = [
         name: 'COMPUTER',
         image: 'computer4.png',
         price: 400,
-        offer: true,
+        offer:true,
         details: [
             "Processore: xxxxx",
             "RAM: xxxx",
@@ -206,15 +209,15 @@ let menuSmartphone = document.querySelector('.smpartphone');
 let productCellsDiv = document.querySelector('.productCells');
 
 /*creo la funzione a nome test gli do parametro category,poi dichiaro che productCells.innerHTML è vuoto per il momento
-dopo creo la variabile data e con il metodo  procut.filtr va a prendere la category e per ogni data va a prendere il valore 
+dopo creo la variabile prodotto e con il metodo  procut.filtr va a prendere la category e per ogni prodotto va a prendere il valore 
 */
 function test(category){
     console.log(category)
     productCellsDiv.innerHTML = '';
-    let data = products.filter(product => product.name === category);
-    data.forEach((value) => {
+    let prodotto = products.filter(product => product.name === category);
+    prodotto.forEach((value) => {       /* per ogni prodotto vado a prendere il valore */
         let cellsDiv = document.createElement('div');
-        cellsDiv.classList.add('items');
+        cellsDiv.classList.add('items');/* a cellsDiv cioè il  div  creato nella riga prima aggiungiamo la classe (ClassList) items */ 
         if(value.offer === false){
             cellsDiv.innerHTML = `
             <img src="${value.image}"/ width=100 heigth=100>
@@ -222,7 +225,7 @@ function test(category){
             <div class="prezzo">${value.price}€</div>
             <button onclick="cartAdd(${value.id})">Add to cart </button>
             <button onclick="apriModal(${value.id})" class="openModal">Product details</button>`;
-            productCellsDiv.appendChild(cellsDiv);
+            productCellsDiv.appendChild(cellsDiv); /* cellsDiv viene inserito e quindi visualizzato come figlio (appendChild) all'interno di productCellsDiv*/
         }else{
             cellsDiv.innerHTML = `
             <img src="${value.image}"/ width=100 heigth=100>
@@ -236,25 +239,28 @@ function test(category){
     });
 };
 
-// creo il PopUp,creo variabili e con document.querySelector vado a pescarli da HTML
+//Creazione PopUp- per ogni elemento in html creo una variabile e  vado a pescare da html con il metodo document.querySelector
+//nella funzione test ho inseriito il bottone con onlick a nome apriModal 
   
 const productPopUp = document.querySelector('.productPopUp');
 const chiudiModal = document.querySelector('.chiudiModal');
 const modalPopUp = document.querySelector('.popup');
 
 // con la funzione apriModal vado ad aprire il PopUp
+// alla funzione do il parametro id 
 
 
-function apriModal(id) {
-   productPopUp.classList.add('show');
-   infoModal(id);
+function apriModal(id) { // dichiaro il parametro id perchè lodichiaro anche nella funzione infoModa,dato che senza parametro id non saprebbe quale prodotto andare a considerare,prednere
+   productPopUp.classList.add('show'); //creo un funzione dentro la quale usando il metodo classList.add,si aggiunge show alla const productpopUp 
+   
+   infoModal(id); // facciamo call back di una funzione 
 };
 
 
 // con la funzione  infoModal(id) inserisco nel modal tutti i dati del prodotto scelto
 function infoModal(id){
     let newList = document.createElement('li');
-    newList.className='listaPopUp'
+    newList.className='listaPopUp'// con il metodo className do una classe alla variabile newList una classe che userò nel css
     modalPopUp.innerHTML = '';
     products.forEach((value) => {
     if(value.id === id) {
@@ -264,19 +270,28 @@ function infoModal(id){
             <div> cod:${value.id}</div>
             <div>${value.details}</div>
             <div>${value.price.toLocaleString()}€</div>
-            <button class="chiudiModal" onclick="closingModal()">Chiudi</button>
+            <button class="chiudiModal" onclick="noPopUp()">Chiudi</button>
             `;
             modalPopUp.appendChild(newList);
     }});
     console.log('fatto')
 };
 // chiudo la finestra di modal
-function closingModal() {
+function noPopUp() {
     productPopUp.classList.remove('show');
 };
 
 //CARRELLO
-// creo variabili e vado a pescarli da html
+//dopo aver creato tutti gli elementi nel html
+// creo variabili e vado a pescarli da html con document.querySelector()
+// creo una variabile e dichiaro un array vuoto dove andranno i prodotti del carrello
+//creo una funzione per caricare i prodotti nel carrello,dopo creo una variabile che ha valore 0 che userò
+// nella funzione e aggiungerò per ogni prodotto aggiunto il suo prezzo((p.es.)value.price),
+//poi vado a creare una funzione,gli assegno un parametro e con il metodo forEach,prendo il value di ogni prodotto,
+//creo una lista con document.createElement che deve essere uguale al id e se id é uguale ad id aggiungo il prodotto 
+//ed il prezzo con il pretodo push,che verrà aggiunta all'array vuoto che avevo creaato prima 
+// poi con template literals aggiungo tutti i valori necessari e con appendChild butto tutto dentro
+//poi con la proprietà innerText aggiungiamo la quantità  alla variabile di array vuoto.length + il prezzo 
 let listaCarello = document.querySelector('.listaCarello');
 let total = document.querySelector('.total');
 let quantità = document.querySelector('.quantità');
@@ -285,17 +300,15 @@ let quantità = document.querySelector('.quantità');
 let CartProducts = [];
 
 
+// creo una variabile a cui assegno il valore 0
+let prezzoTotale = 0;
 //creo una funzione per caricare i prodotti nel carrello
-var prezzoTotale = 0; prezzoTotale
-
 function cartAdd(id){
-    let calcola = 0;
     products.forEach((value) => {
         let contNuovo = document.createElement('li');
-        contNuovo.id = id;
         if(value['id'] === id) {
-            prezzoTotale = prezzoTotale + value.price;
-            CartProducts.push(id)
+            prezzoTotale  += value.price;
+            CartProducts.push(id) /* push è un metodo che si usa per aggiungere un'ulteriore elemento dentro  array  */
             contNuovo.innerHTML = `
                 <div><img src="${value.image}"/></div>
                 <div> ${value.name} </div>
@@ -304,7 +317,13 @@ function cartAdd(id){
             `;
             listaCarello.appendChild(contNuovo);
         }
-    quantità.innerText = CartProducts.length;
-    total.innerText = prezzoTotale.toLocaleString() + ' €';
+
+        /* prendiamo l'elemento span che ha classe quantià e con il metodo innerText 
+        gli scriviamo dentro dinamicamente il numero dei prodotti che js corrisponde
+         alla lunghezza di CartProducts che è l'array vuoto creato prima della funzione
+          poi prendiamo l'elemnto div che ha come classe total e con il metodo innerText
+           gli scriviamo dentro dinamicamente il prezzoTotale di tutti i prodotti*/
+    quantità.innerText = CartProducts.length;  
+    total.innerText = prezzoTotale + ' €';
     })
 }

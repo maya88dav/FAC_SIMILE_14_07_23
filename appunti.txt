@@ -1,0 +1,14 @@
+per realizzare un CARELLO nel html 
+1.creo un div ,
+2.creo  il tag <ul> dove mettero una lista di elementi che andranno generati direttamente dal file di js.
+3.creo altri div dove si vedranno il risultato totale ed il bottone per chiudere il carello  
+dopo aver creato tutti gli elementi nel html vado a lavorare nel  file di javascript
+1. creo variabili e vado a pescarli da html con document.querySelector()
+2. creo una variabile e dichiaro un array vuoto dove andranno i prodotti del carrello
+3.dopo creo una variabile che ha valore 0 (parte da 0)che userò creo una funzione per caricare i prodotti nel carrello,
+ nella funzione e aggiungerò per ogni prodotto aggiunto il suo prezzo((p.es.)value.price),
+4.poi vado a creare una funzione,gli assegno un parametro e con il forEach,prendo il value di ogni prodotto,
+5.creo una lista con document.createElement che deve essere uguale al id e se id é uguale  aggiungo il prodotto 
+ed il prezzo con il pretodo push,che verrà aggiunta all'array vuoto che avevo creato prima 
+7. poi con template literals aggiungo tutti i valori necessari e con appendChild butto tutto dentro
+8.poi con la proprietà innerText aggiungiamo la quantità  alla variabile di array vuoto.length + il prezzo 
